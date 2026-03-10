@@ -12,6 +12,8 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
   const body = req.body || {};
 
+  console.log("Incoming request:", JSON.stringify(body, null, 2));
+
   return res.status(200).json({
     type: "INTERACTION",
     status: "SUCCEEDED",
@@ -21,27 +23,33 @@ app.post("/", (req, res) => {
       interactions: [
         {
           type: "SHOW",
-          id: body?.data?.interactionId,
+          id: "$interactionId$",
           slate: {
             rootBlock: "root",
             blocks: [
               {
                 id: "root",
-                name: "Container",
-                props: {
-                  direction: "vertical",
-                  padding: "md"
-                },
-                children: ["text1"]
+                name: "Card",
+                props: "{\"padding\":\"md\"}",
+                children: "[\"header\",\"content\"]"
+              },
+              {
+                id: "header",
+                name: "Card.Header",
+                props: "{\"title\":\"Render Test\"}",
+                children: "[]"
+              },
+              {
+                id: "content",
+                name: "Card.Content",
+                props: "{\"className\":\"space-y-3\"}",
+                children: "[\"text1\"]"
               },
               {
                 id: "text1",
                 name: "Text",
-                props: {
-                  value: "Block works from Render",
-                  size: "lg"
-                },
-                children: []
+                props: "{\"value\":\"Block works from Render\",\"size\":\"lg\"}",
+                children: "[]"
               }
             ]
           }
