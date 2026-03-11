@@ -60,7 +60,7 @@ app.post("/", (req, res) => {
               {
                 id: "iframe1",
                 name: "Iframe",
-                props: "{\"src\":\"https://www.youtube.com/watch?v=NBKmhyAJ6_Q\",\"height\":400,\"title\":\"YouTube video\"}",
+                props: "{\"src\":\"https://www.youtube.com/embed/NBKmhyAJ6_Q\",\"height\":400,\"title\":\"YouTube video\"}",
                 children: "[]"
               }
             ]
