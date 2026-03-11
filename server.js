@@ -43,12 +43,18 @@ app.post("/", (req, res) => {
                 id: "content",
                 name: "Card.Content",
                 props: "{\"className\":\"space-y-3\"}",
-                children: "[\"text1\"]"
+                children: "[\"text1\",\"text2\"]"
               },
               {
                 id: "text1",
                 name: "Text",
                 props: "{\"value\":\"Hello from Render\",\"size\":\"lg\"}",
+                children: "[]"
+              },
+              {
+                id: "text2",
+                name: "Text",
+                props: "{\"value\":\"Second line test\",\"size\":\"md\"}",
                 children: "[]"
               }
             ]
