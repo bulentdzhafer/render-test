@@ -36,7 +36,7 @@ app.post("/", (req, res) => {
               {
                 id: "header",
                 name: "Card.Header",
-                props: "{\"title\":\"Render Test\"}",
+                props: "{\"title\":\"Video Test\"}",
                 children: "[]"
               },
               {
@@ -49,18 +49,18 @@ app.post("/", (req, res) => {
                 id: "stack",
                 name: "Container",
                 props: "{\"direction\":\"vertical\",\"padding\":\"sm\"}",
-                children: "[\"text1\",\"text2\"]"
+                children: "[\"text1\",\"iframe1\"]"
               },
               {
                 id: "text1",
                 name: "Text",
-                props: "{\"value\":\"Hello from Render\",\"size\":\"lg\"}",
+                props: "{\"value\":\"Testing YouTube iframe\",\"size\":\"md\"}",
                 children: "[]"
               },
               {
-                id: "text2",
-                name: "Text",
-                props: "{\"value\":\"Second line test\",\"size\":\"md\"}",
+                id: "iframe1",
+                name: "Iframe",
+                props: "{\"src\":\"https://www.youtube.com/embed/H98Rfljxmsc\",\"height\":400,\"title\":\"YouTube video\"}",
                 children: "[]"
               }
             ]
