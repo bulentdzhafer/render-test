@@ -43,6 +43,12 @@ app.post("/", (req, res) => {
                 id: "content",
                 name: "Card.Content",
                 props: "{\"className\":\"space-y-3\"}",
+                children: "[\"stack\"]"
+              },
+              {
+                id: "stack",
+                name: "Container",
+                props: "{\"direction\":\"vertical\",\"padding\":\"sm\"}",
                 children: "[\"text1\",\"text2\"]"
               },
               {
