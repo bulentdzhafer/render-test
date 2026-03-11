@@ -10,24 +10,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  const body = req.body || {};
-  const appId = body?.data?.appId;
-  const interactionId = body?.data?.interactionId;
-
-  console.log("POST HIT");
-  console.log("Incoming request:");
-  console.log(JSON.stringify(body, null, 2));
-
   const responsePayload = {
     type: "INTERACTION",
     status: "SUCCEEDED",
     data: {
-      appId,
-      interactionId,
       interactions: [
         {
           type: "SHOW",
-          id: interactionId,
+          id: "$interactionId$",
           slate: {
             rootBlock: "root",
             blocks: [
@@ -61,9 +51,6 @@ app.post("/", (req, res) => {
       ]
     }
   };
-
-  console.log("Outgoing response:");
-  console.log(JSON.stringify(responsePayload, null, 2));
 
   return res.status(200).json(responsePayload);
 });
