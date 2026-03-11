@@ -10,14 +10,20 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
+  const body = req.body || {};
+  const appId = body?.data?.appId;
+  const interactionId = body?.data?.interactionId;
+
   const responsePayload = {
     type: "INTERACTION",
     status: "SUCCEEDED",
     data: {
+      appId,
+      interactionId,
       interactions: [
         {
           type: "SHOW",
-          id: "$interactionId$",
+          id: interactionId,
           slate: {
             rootBlock: "root",
             blocks: [
