@@ -11,45 +11,61 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   const body = req.body || {};
+  const appId = body?.data?.appId;
+  const interactionId = body?.data?.interactionId;
 
   console.log("POST HIT");
+  console.log("Incoming request:");
   console.log(JSON.stringify(body, null, 2));
 
-  return res.status(200).json({
+  const responsePayload = {
     type: "INTERACTION",
-    status: "Succeeded",
+    status: "SUCCEEDED",
     data: {
-      appId: body?.data?.appId,
-      interactionId: body?.data?.interactionId,
+      appId,
+      interactionId,
       interactions: [
         {
           type: "SHOW",
-          id: "dynamic-block",
+          id: interactionId,
           slate: {
             rootBlock: "root",
             blocks: [
               {
                 id: "root",
-                name: "Container",
-                props: {
-                  spacing: "md"
-                },
-                children: ["text"]
+                name: "Card",
+                props: "{\"padding\":\"md\"}",
+                children: "[\"header\",\"content\"]"
               },
               {
-                id: "text",
-                name: "text",
-                props: {
-                  format: "markdown",
-                  value: "Fresh block works"
-                }
+                id: "header",
+                name: "Card.Header",
+                props: "{\"title\":\"Render Test\"}",
+                children: "[]"
+              },
+              {
+                id: "content",
+                name: "Card.Content",
+                props: "{\"className\":\"space-y-3\"}",
+                children: "[\"text1\"]"
+              },
+              {
+                id: "text1",
+                name: "Text",
+                props: "{\"value\":\"Hello from Render\",\"size\":\"lg\"}",
+                children: "[]"
               }
             ]
           }
         }
       ]
     }
-  });
+  };
+
+  console.log("Outgoing response:");
+  console.log(JSON.stringify(responsePayload, null, 2));
+
+  return res.status(200).json(responsePayload);
 });
 
 app.listen(PORT, () => {
