@@ -12,7 +12,8 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
   const body = req.body || {};
 
-  console.log("Incoming request:", JSON.stringify(body, null, 2));
+  console.log("POST HIT");
+  console.log(JSON.stringify(body, null, 2));
 
   return res.status(200).json({
     type: "INTERACTION",
@@ -40,7 +41,7 @@ app.post("/", (req, res) => {
                 name: "text",
                 props: {
                   format: "markdown",
-                  value: "Block works from Render"
+                  value: "Fresh block works"
                 }
               }
             ]
