@@ -19,30 +19,28 @@ app.post("/", (req, res) => {
 
   const responsePayload = {
     type: "INTERACTION",
-    status: "Succeeded",
+    status: "SUCCEEDED",
     data: {
       appId,
       interactionId,
       interactions: [
         {
           type: "SHOW",
-          id: "aliyapp-dynamic-block",
+          id: interactionId,
           slate: {
             rootBlock: "aliyapp-root",
             blocks: [
               {
                 id: "aliyapp-root",
                 name: "Container",
-                children: ["iframe-child"]
+                props: "{\"direction\":\"vertical\",\"padding\":\"sm\"}",
+                children: "[\"iframe-child\"]"
               },
               {
                 id: "iframe-child",
                 name: "Iframe",
-                props: {
-                  src: "https://aliyapp.azurewebsites.net/gateway/embed?blockKey=chat&actorId=StWLB81F0U",
-                  height: 720
-                },
-                children: []
+                props: "{\"src\":\"https://aliyapp.azurewebsites.net/gateway/embed?blockKey=chat&actorId=StWLB81F0U\",\"height\":720,\"title\":\"Aliyapp Chat\"}",
+                children: "[]"
               }
             ]
           }
