@@ -16,6 +16,9 @@ app.post("/", (req, res) => {
 
   const appId = body?.data?.appId;
   const interactionId = body?.data?.interactionId;
+  const actorId = body?.data?.actorId;
+
+  const iframeUrl = `https://aliyapp.azurewebsites.net/gateway/embed?blockKey=chat&actorId=${actorId}`;
 
   const responsePayload = {
     type: "INTERACTION",
@@ -28,19 +31,26 @@ app.post("/", (req, res) => {
           type: "SHOW",
           id: interactionId,
           slate: {
-            rootBlock: "aliyapp-root",
+            rootBlock: "root",
             blocks: [
               {
-                id: "aliyapp-root",
+                id: "root",
                 name: "Container",
-                props: "{\"direction\":\"vertical\",\"padding\":\"sm\"}",
-                children: "[\"iframe-child\"]"
+                props: JSON.stringify({
+                  direction: "vertical",
+                  padding: "sm"
+                }),
+                children: JSON.stringify(["iframe-child"])
               },
               {
                 id: "iframe-child",
                 name: "Iframe",
-                props: "{\"src\":\"https://aliyapp.azurewebsites.net/gateway/embed?blockKey=chat&actorId=StWLB81F0U\",\"height\":720,\"title\":\"Aliyapp Chat\"}",
-                children: "[]"
+                props: JSON.stringify({
+                  src: iframeUrl,
+                  height: 720,
+                  title: "Aliyapp Chat"
+                }),
+                children: JSON.stringify([])
               }
             ]
           }
