@@ -54,7 +54,7 @@ function createJwtUrl() {
     });
 
     const redirect =
-        "/post-type-test-tdbucnje?layout=basic";
+"/embed/space/post-type-test-tdbucnje?readonly=true&header=true&composer=true";
 
     return `${COMMUNITY}/api/auth/sso?jwt=${encodeURIComponent(token)}&redirect_uri=${encodeURIComponent(redirect)}`;
 
