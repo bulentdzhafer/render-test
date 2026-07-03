@@ -16,20 +16,28 @@ const SECRET = process.env.JWT_SECRET;
 app.get("/", (req, res) => {
 
     res.send(`
-        <h2>Bettermode JWT Test</h2>
+        <h2>Bettermode JWT Iframe Test</h2>
 
-        <a href="/login">
-            Login with JWT
-        </a>
+        <p>
+            <a href="/iframe">
+                Open BetterMode inside iframe
+            </a>
+        </p>
+
+        <p>
+            <a href="/login">
+                Open BetterMode directly
+            </a>
+        </p>
     `);
 
 });
 
-app.get("/login", (req, res) => {
+function createJwtUrl() {
 
     const payload = {
 
-        sub: "test-user",
+        sub: "jwt-test-user",
 
         email: "test@example.com",
 
@@ -48,14 +56,68 @@ app.get("/login", (req, res) => {
     const redirect =
         "/post-type-test-tdbucnje?layout=basic";
 
-    const url =
-        `${COMMUNITY}/api/auth/sso` +
-        `?jwt=${encodeURIComponent(token)}` +
-        `&redirect_uri=${encodeURIComponent(redirect)}`;
+    return `${COMMUNITY}/api/auth/sso?jwt=${encodeURIComponent(token)}&redirect_uri=${encodeURIComponent(redirect)}`;
 
-    console.log(url);
+}
 
-    res.redirect(url);
+app.get("/login", (req, res) => {
+
+    res.redirect(createJwtUrl());
+
+});
+
+app.get("/iframe", (req, res) => {
+
+    const url = createJwtUrl();
+
+    res.send(`
+<!doctype html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>JWT iframe test</title>
+
+<style>
+
+html,body{
+
+margin:0;
+
+height:100%;
+
+}
+
+iframe{
+
+width:100%;
+
+height:100%;
+
+border:0;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<iframe
+
+src="${url}"
+
+allow="clipboard-read; clipboard-write"
+
+></iframe>
+
+</body>
+
+</html>
+`);
 
 });
 
