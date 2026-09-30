@@ -1,60 +1,47 @@
-import express from "express";
-
-const app = express();
-const PORT = process.env.PORT || 10000;
-
-app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("Bettermode Interaction Test");
-});
-
-app.post("/api/bettermode", (req, res) => {
-  console.log("INTERACTION REQUEST:");
-  console.log(JSON.stringify(req.body, null, 2));
-
-  const response = {
-    type: "INTERACTION",
-    status: "SUCCEEDED",
-    data: {
-      interactions: [
-        {
-          type: "SHOW",
-          id: "$interactionId$",
-          slate: {
-            rootBlock: "root",
-            blocks: [
-              {
-                id: "root",
-                name: "Card",
-                children: "[\"content\"]",
-                props: "{\"padding\":\"md\"}"
-              },
-              {
-                id: "content",
-                name: "Card.Content",
-                children: "[\"text\"]",
-                props: "{}"
-              },
-              {
-                id: "text",
-                name: "Text",
-                children: "[]",
-                props: "{\"value\":\"Test from Render\"}"
-              }
-            ]
-          }
+const response = {
+  type: "INTERACTION",
+  status: "SUCCEEDED",
+  data: {
+    interactions: [
+      {
+        type: "SHOW",
+        id: "$interactionId$",
+        slate: {
+          rootBlock: "root",
+          blocks: [
+            {
+              id: "root",
+              name: "Card",
+              children: "[\"header\",\"content\"]",
+              props: "{\"padding\":\"lg\"}"
+            },
+            {
+              id: "header",
+              name: "Card.Header",
+              children: "[\"title\"]",
+              props: "{}"
+            },
+            {
+              id: "title",
+              name: "Text",
+              children: "[]",
+              props: "{\"value\":\"INTERACTION TEST\"}"
+            },
+            {
+              id: "content",
+              name: "Card.Content",
+              children: "[\"text\"]",
+              props: "{}"
+            },
+            {
+              id: "text",
+              name: "Text",
+              children: "[]",
+              props: "{\"value\":\"Bettermode → Render → Dynamic Block works!\"}"
+            }
+          ]
         }
-      ]
-    }
-  };
-
-  console.log("INTERACTION RESPONSE:");
-  console.log(JSON.stringify(response, null, 2));
-
-  res.status(200).json(response);
-});
-
-app.listen(PORT, () => {
-  console.log(`Running on port ${PORT}`);
-});
+      }
+    ]
+  }
+};
