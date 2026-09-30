@@ -1,3 +1,14 @@
+import express from "express";
+
+const app = express();
+const PORT = process.env.PORT || 10000;
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Bettermode Interaction Test");
+});
+
 app.post("/api/bettermode", (req, res) => {
   console.log("INTERACTION REQUEST:");
   console.log(JSON.stringify(req.body, null, 2));
@@ -42,4 +53,8 @@ app.post("/api/bettermode", (req, res) => {
   console.log(JSON.stringify(response, null, 2));
 
   res.status(200).json(response);
+});
+
+app.listen(PORT, () => {
+  console.log(`Running on port ${PORT}`);
 });
